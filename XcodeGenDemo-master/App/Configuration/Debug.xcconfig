@@ -1,0 +1,6 @@
+//
+//  Debug.xcconfig
+//  XcodeGenDemo
+//
+
+APP_DISPLAY_NAME = (D) XcodeGen Demo

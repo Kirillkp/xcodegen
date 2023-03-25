@@ -1,0 +1,6 @@
+//
+//  Production.xcconfig
+//  XcodeGenDemo
+//
+
+APP_DISPLAY_NAME = XcodeGen Demo

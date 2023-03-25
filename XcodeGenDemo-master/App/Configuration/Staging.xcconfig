@@ -1,0 +1,6 @@
+//
+//  Staging.xcconfig
+//  XcodeGenDemo
+//
+
+APP_DISPLAY_NAME = (S) XcodeGen Demo
