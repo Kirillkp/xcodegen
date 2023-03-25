@@ -1,0 +1,75 @@
+name: XcodeGenDemo
+configs:
+  Production: release
+  Staging: release
+  Debug: debug
+options:
+  minimumXcodeGenVersion: 2.3.0
+  deploymentTarget:
+    iOS: 10.0
+  defaultConfig: Production
+  groupSortPosition: top
+  developmentLanguage: ru
+
+Settings:
+  base:
+    SWIFT_VERSION: 5.0
+    TARGETED_DEVICE_FAMILY: 1
+  configs:
+    Production:
+      ENABLE_TESTABILITY: NO
+      SWIFT_COMPILATION_MODE: wholemodule
+      SWIFT_OPTIMIZATION_LEVEL: -O
+      VALIDATE_PRODUCT: YES
+    Staging:
+      ENABLE_TESTABILITY: NO
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: STAGING
+      SWIFT_COMPILATION_MODE: wholemodule
+      SWIFT_OPTIMIZATION_LEVEL: -O
+      VALIDATE_PRODUCT: YES
+    Debug:
+      ENABLE_TESTABILITY: YES
+      SWIFT_COMPILATION_MODE: singlefile
+      SWIFT_OPTIMIZATION_LEVEL: -Onone
+      VALIDATE_PRODUCT: NO
+
+targets:
+  App:
+    type: application
+    platform: iOS
+    deploymentTarget: 10.0
+    sources:
+      - path: App
+        excludes:
+          - Readme.txt
+    configFiles:
+      Production: App/Configuration/Production.xcconfig
+      Staging: App/Configuration/Staging.xcconfig
+      Debug: App/Configuration/Debug.xcconfig
+    settings:
+      base:
+        ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: $(inherited)
+        CODE_SIGN_IDENTITY: iPhone Developer
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: LV744N3C27
+        DEFINES_MODULE: YES
+        INFOPLIST_FILE: App/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.self.XcodeGenDemo
+        TARGETED_DEVICE_FAMILY: 1
+        XCODEGEN_STATE: YES
+      configs:
+        Production:
+          ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        Staging:
+          ASSETCATALOG_COMPILER_APPICON_NAME: AppIconStaging
+        Debug:
+          ASSETCATALOG_COMPILER_APPICON_NAME: AppIconDebug
+    scheme:
+      environmentVariables:
+        DYLD_PRINT_STATISTICS: 1
+    postCompileScripts:
+      - script: |
+                if which swiftlint >/dev/null; then
+                  swiftlint --no-cache
+                fi
+        name: SwiftLint
